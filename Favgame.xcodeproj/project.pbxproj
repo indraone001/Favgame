@@ -22,6 +22,12 @@
 		69945CD6295BB8A900CD014D /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69945CD5295BB8A900CD014D /* UIColor+Ext.swift */; };
 		69945CD9295BBAB000CD014D /* GameCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69945CD8295BBAB000CD014D /* GameCollectionViewCell.swift */; };
 		69945CDD295BC68F00CD014D /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69945CDC295BC68F00CD014D /* Game.swift */; };
+		69945CE2295BDCF100CD014D /* GameLocalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69945CE1295BDCF000CD014D /* GameLocalDataSource.swift */; };
+		69945CE5295BDD9600CD014D /* GameRemoteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69945CE4295BDD9600CD014D /* GameRemoteDataSource.swift */; };
+		69945CE9295BDF2300CD014D /* GameResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69945CE8295BDF2300CD014D /* GameResponse.swift */; };
+		69945CEC295BE25000CD014D /* APICall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69945CEB295BE25000CD014D /* APICall.swift */; };
+		69945CEE295BE4B000CD014D /* CustomError+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69945CED295BE4B000CD014D /* CustomError+Ext.swift */; };
+		69945CF1295BE7E500CD014D /* GameMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69945CF0295BE7E500CD014D /* GameMapper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +48,12 @@
 		69945CD5295BB8A900CD014D /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
 		69945CD8295BBAB000CD014D /* GameCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCollectionViewCell.swift; sourceTree = "<group>"; };
 		69945CDC295BC68F00CD014D /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		69945CE1295BDCF000CD014D /* GameLocalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLocalDataSource.swift; sourceTree = "<group>"; };
+		69945CE4295BDD9600CD014D /* GameRemoteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRemoteDataSource.swift; sourceTree = "<group>"; };
+		69945CE8295BDF2300CD014D /* GameResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameResponse.swift; sourceTree = "<group>"; };
+		69945CEB295BE25000CD014D /* APICall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICall.swift; sourceTree = "<group>"; };
+		69945CED295BE4B000CD014D /* CustomError+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomError+Ext.swift"; sourceTree = "<group>"; };
+		69945CF0295BE7E500CD014D /* GameMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMapper.swift; sourceTree = "<group>"; };
 		72D2E646C25A023F74390264 /* Pods_Favgame.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Favgame.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE0339F8BF449187263E6BBB /* Pods-Favgame.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Favgame.release.xcconfig"; path = "Target Support Files/Pods-Favgame/Pods-Favgame.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -122,7 +134,6 @@
 			isa = PBXGroup;
 			children = (
 				69945CDA295BC67A00CD014D /* Model */,
-				69945CCC295AFA9100CD014D /* Repository */,
 				69945CC9295AF86300CD014D /* UseCase */,
 			);
 			path = Domain;
@@ -140,6 +151,9 @@
 		69945CBA295AD90F00CD014D /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				69945CE6295BDF0A00CD014D /* Model */,
+				69945CDE295BDCC000CD014D /* DataSource */,
+				69945CCC295AFA9100CD014D /* Repository */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -147,6 +161,8 @@
 		69945CBB295AD91A00CD014D /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				69945CEF295BE7D300CD014D /* Mapper */,
+				69945CEA295BE24000CD014D /* Network */,
 				69945CD2295B000500CD014D /* Extensions */,
 			);
 			path = Utils;
@@ -205,17 +221,9 @@
 		69945CCC295AFA9100CD014D /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				69945CCF295AFB0900CD014D /* Remote */,
-			);
-			path = Repository;
-			sourceTree = "<group>";
-		};
-		69945CCF295AFB0900CD014D /* Remote */ = {
-			isa = PBXGroup;
-			children = (
 				69945CCD295AFABE00CD014D /* GameRepository.swift */,
 			);
-			path = Remote;
+			path = Repository;
 			sourceTree = "<group>";
 		};
 		69945CD2295B000500CD014D /* Extensions */ = {
@@ -223,6 +231,7 @@
 			children = (
 				69945CD3295B001B00CD014D /* Constraints+Ext.swift */,
 				69945CD5295BB8A900CD014D /* UIColor+Ext.swift */,
+				69945CED295BE4B000CD014D /* CustomError+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -249,6 +258,63 @@
 				69945CDC295BC68F00CD014D /* Game.swift */,
 			);
 			path = Remote;
+			sourceTree = "<group>";
+		};
+		69945CDE295BDCC000CD014D /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				69945CE3295BDD8B00CD014D /* Remote */,
+				69945CDF295BDCCA00CD014D /* Local */,
+			);
+			path = DataSource;
+			sourceTree = "<group>";
+		};
+		69945CDF295BDCCA00CD014D /* Local */ = {
+			isa = PBXGroup;
+			children = (
+				69945CE1295BDCF000CD014D /* GameLocalDataSource.swift */,
+			);
+			path = Local;
+			sourceTree = "<group>";
+		};
+		69945CE3295BDD8B00CD014D /* Remote */ = {
+			isa = PBXGroup;
+			children = (
+				69945CE4295BDD9600CD014D /* GameRemoteDataSource.swift */,
+			);
+			path = Remote;
+			sourceTree = "<group>";
+		};
+		69945CE6295BDF0A00CD014D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				69945CE7295BDF1200CD014D /* Remote */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		69945CE7295BDF1200CD014D /* Remote */ = {
+			isa = PBXGroup;
+			children = (
+				69945CE8295BDF2300CD014D /* GameResponse.swift */,
+			);
+			path = Remote;
+			sourceTree = "<group>";
+		};
+		69945CEA295BE24000CD014D /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				69945CEB295BE25000CD014D /* APICall.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		69945CEF295BE7D300CD014D /* Mapper */ = {
+			isa = PBXGroup;
+			children = (
+				69945CF0295BE7E500CD014D /* GameMapper.swift */,
+			);
+			path = Mapper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -384,18 +450,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69945CF1295BE7E500CD014D /* GameMapper.swift in Sources */,
 				69945CC8295AF7DF00CD014D /* HomeViewController.swift in Sources */,
 				69945CD9295BBAB000CD014D /* GameCollectionViewCell.swift in Sources */,
+				69945CE5295BDD9600CD014D /* GameRemoteDataSource.swift in Sources */,
 				69945CC5295AF38A00CD014D /* Injection.swift in Sources */,
 				69945CCB295AF8A200CD014D /* GetListGameUseCase.swift in Sources */,
 				69945CD4295B001B00CD014D /* Constraints+Ext.swift in Sources */,
 				69945CD1295AFC8700CD014D /* Constant.swift in Sources */,
 				69945CC1295ADAAD00CD014D /* BaseViewController.swift in Sources */,
+				69945CE9295BDF2300CD014D /* GameResponse.swift in Sources */,
+				69945CEE295BE4B000CD014D /* CustomError+Ext.swift in Sources */,
 				69945CDD295BC68F00CD014D /* Game.swift in Sources */,
 				69945CA3295ACFEF00CD014D /* AppDelegate.swift in Sources */,
 				69945CD6295BB8A900CD014D /* UIColor+Ext.swift in Sources */,
 				69945CA5295ACFEF00CD014D /* SceneDelegate.swift in Sources */,
 				69945CCE295AFABE00CD014D /* GameRepository.swift in Sources */,
+				69945CEC295BE25000CD014D /* APICall.swift in Sources */,
+				69945CE2295BDCF100CD014D /* GameLocalDataSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

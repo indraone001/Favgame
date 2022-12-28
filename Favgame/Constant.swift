@@ -8,9 +8,6 @@
 import UIKit
 
 struct Constant {
-  
-  static let apiKey = "d1081332b72f464085735be4f4fecbe7"
-  static let baseURL = "https://api.rawg.io"
 
   static let fontBold = UIFont.boldSystemFont(ofSize: 32)
   static let fontSemiBold = UIFont.boldSystemFont(ofSize: 16)
@@ -23,11 +20,3 @@ struct Constant {
   
   static let imageDefault = "https://raw.githubusercontent.com/indraone001/imageHost/main/default-placeholder.png"
 }
-
-//FontWeight light = FontWeight.w300;
-//FontWeight regular = FontWeight.w400;
-//FontWeight medium = FontWeight.w500;
-//FontWeight semiBold = FontWeight.w600;
-//FontWeight bold = FontWeight.w700;
-//FontWeight extraBold = FontWeight.w800;
-//FontWeight black = FontWeight.w900;

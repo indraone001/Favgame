@@ -12,6 +12,7 @@ import SkeletonView
 class HomeViewController: UIViewController {
   // MARK: - Properties
   var getListGameUseCase: GetListGameUseCase?
+  private var cancellables: Set<AnyCancellable> = []
   private var gameList: [Game]?
   
   private let appTitle: UILabel = {
@@ -29,6 +30,7 @@ class HomeViewController: UIViewController {
     layout.scrollDirection = .vertical
     layout.sectionInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+    collectionView.backgroundColor = UIColor(rgb: Constant.rhinoColor)
     collectionView.isSkeletonable = true
     collectionView.showsHorizontalScrollIndicator = false
     collectionView.register(GameCollectionViewCell.self, forCellWithReuseIdentifier: GameCollectionViewCell.identifier)
@@ -45,6 +47,7 @@ class HomeViewController: UIViewController {
     super.viewDidLoad()
     view.backgroundColor = UIColor(rgb: Constant.rhinoColor)
     setupUI()
+    fetchGame()
   }
   
   // MARK: - Helper
@@ -71,17 +74,38 @@ class HomeViewController: UIViewController {
     )
   }
   
+  private func fetchGame() {
+    gameCollectionView.showSkeleton(usingColor: .gray, transition: .crossDissolve(0.25))
+    getListGameUseCase?.execute()
+      .receive(on: RunLoop.main)
+      .sink(receiveCompletion: { completion in
+        switch completion {
+        case .failure:
+            let alert = UIAlertController(title: "Alert", message: String(describing: completion), preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            self.present(alert, animated: true)
+        case .finished:
+          self.gameCollectionView.hideSkeleton(reloadDataAfter: true)
+        }
+      }, receiveValue: { [weak self] gameList in
+        self?.gameList = gameList
+      })
+      .store(in: &cancellables)
+  }
+  
 }
 
 extension HomeViewController: SkeletonCollectionViewDataSource, SkeletonCollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+  // MARK: - SkeletonCollectionViewDataSource
   func collectionSkeletonView(_ skeletonView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> SkeletonView.ReusableCellIdentifier {
     return GameCollectionViewCell.identifier
   }
   
   func collectionSkeletonView(_ skeletonView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return 10
+    return 8
   }
   
+  // MARK: - UICollectionViewDataSource
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return gameList?.count ?? 0
   }
@@ -100,9 +124,9 @@ extension HomeViewController: SkeletonCollectionViewDataSource, SkeletonCollecti
     
     return gameCell
   }
-  
+    
   // MARK: - UICollectionViewDelegateFlowLayout
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    return CGSize(width: view.frame.width / 2 - 16, height: 300)
+    return CGSize(width: view.frame.width / 2 - 16, height: 280)
   }
 }

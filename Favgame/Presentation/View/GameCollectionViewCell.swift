@@ -26,7 +26,7 @@ class GameCollectionViewCell: UICollectionViewCell {
     label.font = Constant.fontSemiBold
     label.numberOfLines = 1
     label.adjustsFontForContentSizeCategory = true
-    label.textColor = UIColor(rgb: Constant.twilightColor)
+    label.textColor = UIColor.white
     return label
   }()
   
@@ -35,7 +35,7 @@ class GameCollectionViewCell: UICollectionViewCell {
     label.font = Constant.fontRegular
     label.numberOfLines = 1
     label.adjustsFontForContentSizeCategory = true
-    label.textColor = UIColor(rgb: Constant.twilightColor)
+    label.textColor = UIColor.white
     return label
   }()
   
@@ -61,13 +61,13 @@ class GameCollectionViewCell: UICollectionViewCell {
     label.font = Constant.fontRegular
     label.numberOfLines = 1
     label.adjustsFontForContentSizeCategory = true
-    label.textColor = UIColor(rgb: Constant.twilightColor)
+    label.textColor = UIColor.white
     return label
   }()
   
   override init(frame: CGRect) {
     super.init(frame: frame)
-    backgroundColor = UIColor(rgb: Constant.eastBayColor)
+    backgroundColor = UIColor(rgb: Constant.rumColor)
     layer.cornerRadius = 8
     layer.shadowOffset = CGSize(width: 0, height: 0)
     layer.shadowColor = UIColor.black.cgColor
@@ -110,13 +110,17 @@ class GameCollectionViewCell: UICollectionViewCell {
       top: title.bottomAnchor,
       leading: leadingAnchor,
       trailing: trailingAnchor,
-      paddingTop: 8,
+      paddingTop: 16,
       paddingLeft: 8,
       paddingRight: 8
     )
     
     addSubview(rateContainer)
     rateContainer.addArrangedSubview(rateIcon)
+    rateIcon.anchor(
+      width: 16,
+      height: 16
+    )
     rateContainer.addArrangedSubview(rate)
     rateContainer.anchor(
       top: released.bottomAnchor,
@@ -129,11 +133,11 @@ class GameCollectionViewCell: UICollectionViewCell {
   }
   
   func configure(with game: Game) {
-    guard let url = URL(string: game.backgroundImage ?? Constant.imageDefault) else { return }
+    guard let url = URL(string: game.backgroundImage) else { return }
     coverImage.kf.setImage(with: url)
     title.text = game.name
     released.text = game.released
-    rate.text = "\(game.rating ?? 0.0)"
+    rate.text = "\(game.rating)"
   }
 
 }
