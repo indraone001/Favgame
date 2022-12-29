@@ -52,6 +52,8 @@ class AboutViewController: UIViewController {
     return label
   }()
   
+  // MARK: - Life Cycle
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     view.backgroundColor = UIColor(rgb: Constant.rhinoColor)
@@ -65,6 +67,39 @@ class AboutViewController: UIViewController {
     setupUI()
   }
   
+  // MARK: - Selector
+
+  @objc private func imageTapped() {
+    let alert = UIAlertController(title: "Update photos", message: "Choose your image resources", preferredStyle: .actionSheet)
+    alert.addAction(UIAlertAction(title: "Cancle", style: .cancel, handler: { _ in
+      self.dismiss(animated: true)
+    }))
+    
+    alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { [weak self] _ in
+      if let imagePicker = self?.imagePicker {
+        imagePicker.sourceType = .camera
+        imagePicker.allowsEditing = true
+        self?.present(imagePicker, animated: true, completion: nil)
+      } else {
+        print("error open the camera")
+      }
+    }))
+    
+    alert.addAction(UIAlertAction(title: "Photos", style: .default, handler: { [weak self] _ in
+      if let imagePicker = self?.imagePicker {
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.allowsEditing = true
+        self?.present(imagePicker, animated: true, completion: nil)
+      } else {
+        print("error open photo library")
+      }
+    }))
+    
+    self.present(alert, animated: true, completion: nil)
+  }
+  
+  // MARK: - Helper
+
   private func fetchAboutData() {
     let userProfile = self.defaults.object(forKey: "userProfile") as? [String: String]
     let userPhotos = UserDefaults.standard.data(forKey: "userPhotos") ?? Data()
@@ -108,35 +143,6 @@ class AboutViewController: UIViewController {
       top: jobLabel.bottomAnchor,
       paddingTop: 24
     )
-  }
-  
-  @objc private func imageTapped() {
-    let alert = UIAlertController(title: "Update photos", message: "Choose your image resources", preferredStyle: .actionSheet)
-    alert.addAction(UIAlertAction(title: "Cancle", style: .cancel, handler: { _ in
-      self.dismiss(animated: true)
-    }))
-    
-    alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { [weak self] _ in
-      if let imagePicker = self?.imagePicker {
-        imagePicker.sourceType = .camera
-        imagePicker.allowsEditing = true
-        self?.present(imagePicker, animated: true, completion: nil)
-      } else {
-        print("error open the camera")
-      }
-    }))
-    
-    alert.addAction(UIAlertAction(title: "Photos", style: .default, handler: { [weak self] _ in
-      if let imagePicker = self?.imagePicker {
-        imagePicker.sourceType = .photoLibrary
-        imagePicker.allowsEditing = true
-        self?.present(imagePicker, animated: true, completion: nil)
-      } else {
-        print("error open photo library")
-      }
-    }))
-    
-    self.present(alert, animated: true, completion: nil)
   }
   
 }

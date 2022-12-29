@@ -51,7 +51,6 @@ class GameLocalDataSource: GameLocalDataSourceProtocol {
             self.realm.objects(GameEntity.self)
               .sorted(byKeyPath: "name", ascending: true)
           }()
-          print("gamelist", gameList)
           completion(.success(gameList.toArray(ofType: GameEntity.self)))
         })
       } catch {

@@ -134,7 +134,7 @@ class DetailViewController: UIViewController {
           alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
           self.present(alert, animated: true)
         case .finished:
-          print("favorited")
+          print("checkFavorite has been called")
         }
       }, receiveValue: { isFavorite in
         self.isFavorite = isFavorite
@@ -169,7 +169,7 @@ class DetailViewController: UIViewController {
           alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
           self.present(alert, animated: true)
         case .finished:
-          print("finished insert favorited")
+          print("insertToFavorite has been called")
         }
       }, receiveValue: { isSuccess in
         if isSuccess {
@@ -250,7 +250,7 @@ extension DetailViewController: UICollectionViewDelegate, UICollectionViewDataSo
   }
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    return CGSize(width: view.frame.width, height: 1000)
+    return CGSize(width: view.frame.width, height: 1200)
   }
   
 }

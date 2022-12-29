@@ -145,25 +145,22 @@
 			isa = PBXGroup;
 			children = (
 				69945CBD295AD92800CD014D /* App */,
-				69945CBA295AD90F00CD014D /* Data */,
-				69945CBC295AD92200CD014D /* DI */,
-				69945CB8295AD8FC00CD014D /* Domain */,
-				69945CB7295AD8F400CD014D /* Presentation */,
+				69945D1A295DE63600CD014D /* Core */,
+				69945CB7295AD8F400CD014D /* Module */,
 				69945CB9295AD90500CD014D /* Resource */,
-				69945CBB295AD91A00CD014D /* Utils */,
 				69945CB0295ACFF100CD014D /* Info.plist */,
 				69945CD0295AFC8700CD014D /* Constant.swift */,
 			);
 			path = Favgame;
 			sourceTree = "<group>";
 		};
-		69945CB7295AD8F400CD014D /* Presentation */ = {
+		69945CB7295AD8F400CD014D /* Module */ = {
 			isa = PBXGroup;
 			children = (
 				69945CD7295BBA9800CD014D /* View */,
 				69945CBE295ADA9700CD014D /* UI */,
 			);
-			path = Presentation;
+			path = Module;
 			sourceTree = "<group>";
 		};
 		69945CB8295AD8FC00CD014D /* Domain */ = {
@@ -353,6 +350,17 @@
 				69945D0B295D69E500CD014D /* GameEntity.swift */,
 			);
 			path = Local;
+			sourceTree = "<group>";
+		};
+		69945D1A295DE63600CD014D /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				69945CBB295AD91A00CD014D /* Utils */,
+				69945CB8295AD8FC00CD014D /* Domain */,
+				69945CBC295AD92200CD014D /* DI */,
+				69945CBA295AD90F00CD014D /* Data */,
+			);
+			path = Core;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
