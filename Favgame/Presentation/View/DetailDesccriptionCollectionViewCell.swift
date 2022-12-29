@@ -1,41 +1,31 @@
 //
-//  GameCollectionViewCell.swift
+//  DetailDescriptionView.swift
 //  Favgame
 //
-//  Created by deri indrawan on 28/12/22.
+//  Created by deri indrawan on 29/12/22.
 //
 
 import UIKit
-import Kingfisher
-import SkeletonView
 
-class GameCollectionViewCell: UICollectionViewCell {
-  static let identifier = "GameCollectionViewCell"
+class DetailDesccriptionCollectionViewCell: UICollectionViewCell {
+  static let identifier = "DetailDescriptionCollectionViewCell"
   
   // MARK: - Properties
-  private let coverImage: UIImageView = {
-    let imageView = UIImageView()
-    imageView.layer.cornerRadius = 8
-    imageView.clipsToBounds = true
-    imageView.contentMode = .scaleAspectFill
-    return imageView
-  }()
-  
   private let title: UILabel = {
     let label = UILabel()
-    label.font = Constant.fontMedium
-    label.numberOfLines = 1
+    label.textColor = .white
+    label.font = Constant.fontSemiBold
+    label.numberOfLines = 2
     label.adjustsFontForContentSizeCategory = true
-    label.textColor = UIColor.white
     return label
   }()
   
   private let released: UILabel = {
     let label = UILabel()
-    label.font = Constant.fontRegular
+    label.textColor = .white
+    label.font = Constant.fontMedium
     label.numberOfLines = 1
     label.adjustsFontForContentSizeCategory = true
-    label.textColor = UIColor.white
     return label
   }()
   
@@ -58,8 +48,17 @@ class GameCollectionViewCell: UICollectionViewCell {
   
   private let rate: UILabel = {
     let label = UILabel()
-    label.font = Constant.fontRegular
+    label.font = Constant.fontMedium
     label.numberOfLines = 1
+    label.adjustsFontForContentSizeCategory = true
+    label.textColor = UIColor.white
+    return label
+  }()
+  
+  private let descriptionLabel: UILabel = {
+    let label = UILabel()
+    label.font = Constant.fontMedium
+    label.numberOfLines = 0
     label.adjustsFontForContentSizeCategory = true
     label.textColor = UIColor.white
     return label
@@ -67,59 +66,37 @@ class GameCollectionViewCell: UICollectionViewCell {
   
   override init(frame: CGRect) {
     super.init(frame: frame)
-    backgroundColor = UIColor(rgb: Constant.rumColor)
-    layer.cornerRadius = 8
-    layer.shadowOffset = CGSize(width: 0, height: 0)
-    layer.shadowColor = UIColor.black.cgColor
-    layer.shadowOpacity = 0.35
-    layer.shadowRadius = 2
-    isSkeletonable = true
-    skeletonCornerRadius = 8
+    backgroundColor = UIColor(rgb: Constant.eastBayColor)
     setupUI()
   }
   
-  required init?(coder: NSCoder) {
+  required init(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
   
   // MARK: - Helper
   private func setupUI() {
-    addSubview(coverImage)
-    coverImage.anchor(
-      top: topAnchor,
-      leading: leadingAnchor,
-      trailing: trailingAnchor,
-      paddingTop: 8,
-      paddingLeft: 8,
-      paddingRight: 8,
-      height: 160
-    )
-    
     addSubview(title)
     title.anchor(
-      top: coverImage.bottomAnchor,
+      top: safeAreaLayoutGuide.topAnchor,
       leading: leadingAnchor,
-      trailing: trailingAnchor,
-      paddingTop: 8,
-      paddingLeft: 8,
-      paddingRight: 8
+      paddingTop: 16,
+      paddingLeft: 12
     )
     
     addSubview(released)
     released.anchor(
       top: title.bottomAnchor,
       leading: leadingAnchor,
-      trailing: trailingAnchor,
       paddingTop: 16,
-      paddingLeft: 8,
-      paddingRight: 8
+      paddingLeft: 12
     )
-    
+
     addSubview(rateContainer)
     rateContainer.addArrangedSubview(rateIcon)
     rateIcon.anchor(
-      width: 16,
-      height: 16
+      width: 20,
+      height: 20
     )
     rateContainer.addArrangedSubview(rate)
     rateContainer.anchor(
@@ -127,17 +104,25 @@ class GameCollectionViewCell: UICollectionViewCell {
       leading: leadingAnchor,
       trailing: trailingAnchor,
       paddingTop: 8,
-      paddingLeft: 8,
-      paddingRight: 8
+      paddingLeft: 12
+    )
+    
+    addSubview(descriptionLabel)
+    descriptionLabel.anchor(
+      top: rateContainer.bottomAnchor,
+      leading: leadingAnchor,
+      trailing: trailingAnchor,
+      paddingTop: 16,
+      paddingLeft: 12,
+      paddingRight: 12
     )
   }
   
-  func configure(with game: Game) {
-    guard let url = URL(string: game.backgroundImage) else { return }
-    coverImage.kf.setImage(with: url)
-    title.text = game.name
-    released.text = game.released
-    rate.text = "\(game.rating)"
+  func configure(with gameDetail: GameDetail) {
+    title.text = gameDetail.name
+    released.text = gameDetail.released
+    rate.text = "\(gameDetail.rating)"
+    descriptionLabel.text = gameDetail.descriptionRaw
   }
 
 }

@@ -33,11 +33,23 @@ class Injection {
         gameRepository: resolver.resolve(GameRepository.self)!
       )
     }
+    
+    container.register(GetGameDetailUseCase.self) { resolver in
+      GetGameDetailUseCase(
+        gameRepository: resolver.resolve(GameRepository.self)!
+      )
+    }
 
     // MARK: - Presenter
     container.register(HomeViewController.self) { resolver in
       let controller = HomeViewController()
       controller.getListGameUseCase = resolver.resolve(GetListGameUseCase.self)
+      return controller
+    }
+    
+    container.register(DetailViewController.self) { resolver in
+      let controller = DetailViewController()
+      controller.getGameDetailUseCase = resolver.resolve(GetGameDetailUseCase.self)
       return controller
     }
     

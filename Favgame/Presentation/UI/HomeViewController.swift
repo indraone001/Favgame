@@ -33,7 +33,10 @@ class HomeViewController: UIViewController {
     collectionView.backgroundColor = UIColor(rgb: Constant.rhinoColor)
     collectionView.isSkeletonable = true
     collectionView.showsHorizontalScrollIndicator = false
-    collectionView.register(GameCollectionViewCell.self, forCellWithReuseIdentifier: GameCollectionViewCell.identifier)
+    collectionView.register(
+      GameCollectionViewCell.self,
+      forCellWithReuseIdentifier: GameCollectionViewCell.identifier
+    )
     return collectionView
   }()
   
@@ -47,7 +50,7 @@ class HomeViewController: UIViewController {
     super.viewDidLoad()
     view.backgroundColor = UIColor(rgb: Constant.rhinoColor)
     setupUI()
-    fetchGame()
+    fetchGameList()
   }
   
   // MARK: - Helper
@@ -74,7 +77,7 @@ class HomeViewController: UIViewController {
     )
   }
   
-  private func fetchGame() {
+  private func fetchGameList() {
     gameCollectionView.showSkeleton(usingColor: .gray, transition: .crossDissolve(0.25))
     getListGameUseCase?.execute()
       .receive(on: RunLoop.main)
@@ -128,5 +131,23 @@ extension HomeViewController: SkeletonCollectionViewDataSource, SkeletonCollecti
   // MARK: - UICollectionViewDelegateFlowLayout
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     return CGSize(width: view.frame.width / 2 - 16, height: 280)
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    let selectedGameId = gameList?[indexPath.row].id
+    let detailVC = Injection().container.resolve(DetailViewController.self)
+    guard let detailVC = detailVC else { return }
+    detailVC.configure(withAnimeId: selectedGameId!)
+    
+    let nav = UINavigationController(rootViewController: detailVC)
+    nav.modalPresentationStyle = .fullScreen
+    
+    let appearance = UINavigationBarAppearance()
+    appearance.configureWithOpaqueBackground()
+    appearance.backgroundColor = UIColor(rgb: Constant.rhinoColor)
+    nav.navigationBar.standardAppearance = appearance
+    nav.navigationBar.scrollEdgeAppearance = nav.navigationBar.standardAppearance
+    nav.navigationBar.tintColor = .white
+    present(nav, animated: true)
   }
 }

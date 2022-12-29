@@ -5,7 +5,7 @@
 //  Created by deri indrawan on 28/12/22.
 //
 
-struct Game: Codable {
+struct Game {
   let id: Int
   let name: String
   let released: String

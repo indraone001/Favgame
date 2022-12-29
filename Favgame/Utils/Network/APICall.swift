@@ -20,7 +20,7 @@ enum Endpoints {
     
     public var url: String {
       switch self {
-      case .game: return "\(API.baseUrl)/api/games?key=\(API.apiKey)"
+      case .game: return "\(API.baseUrl)/api/games"
       }
     }
   }

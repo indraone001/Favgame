@@ -9,6 +9,7 @@ import Combine
 
 protocol GameRepositoryProtocol: AnyObject {
   func getGameList() -> AnyPublisher<[Game], Error>
+  func getGameDetail(withGameId id: Int) -> AnyPublisher<GameDetail, Error>
 }
 
 class GameRepository: GameRepositoryProtocol {
@@ -26,7 +27,13 @@ class GameRepository: GameRepositoryProtocol {
   
   func getGameList() -> AnyPublisher<[Game], Error> {
     return gameRemoteDataSource.getListGame()
-      .map { GameMapper.mapGameResponseToDomains(input: $0) }
+      .map { GameMapper.mapGameResponsesToDomains(input: $0) }
+      .eraseToAnyPublisher()
+  }
+  
+  func getGameDetail(withGameId id: Int) -> AnyPublisher<GameDetail, Error> {
+    return gameRemoteDataSource.getGameDetail(withGameId: id)
+      .map { GameDetailMapper.mapGameDetailResponsesToDomains(input: $0) }
       .eraseToAnyPublisher()
   }
   

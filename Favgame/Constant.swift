@@ -10,7 +10,8 @@ import UIKit
 struct Constant {
 
   static let fontBold = UIFont.boldSystemFont(ofSize: 32)
-  static let fontSemiBold = UIFont.boldSystemFont(ofSize: 16)
+  static let fontSemiBold = UIFont.boldSystemFont(ofSize: 24)
+  static let fontMedium = UIFont.boldSystemFont(ofSize: 16)
   static let fontRegular = UIFont.systemFont(ofSize: 12)
   
   static let twilightColor = 0xE9D5DA

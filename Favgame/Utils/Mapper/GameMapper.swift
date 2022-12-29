@@ -7,7 +7,7 @@
 
 final class GameMapper {
   
-  static func mapGameResponseToDomains(
+  static func mapGameResponsesToDomains(
     input gameResponses: [GameResponse]
   ) -> [Game] {
     return gameResponses.map { result in
