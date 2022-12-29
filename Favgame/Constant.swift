@@ -9,6 +9,8 @@ import UIKit
 
 struct Constant {
 
+  static let favoritePressedNotif = "FAVORITE"
+  
   static let fontBold = UIFont.boldSystemFont(ofSize: 32)
   static let fontSemiBold = UIFont.boldSystemFont(ofSize: 24)
   static let fontMedium = UIFont.boldSystemFont(ofSize: 16)

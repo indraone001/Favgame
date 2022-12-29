@@ -21,4 +21,18 @@ final class GameMapper {
     }
   }
   
+  static func mapGameEntityToDomains(
+    input gameEntity: [GameEntity]
+  ) -> [Game] {
+    return gameEntity.map { result in
+      return Game(
+        id: result.id,
+        name: result.name,
+        released: result.released,
+        backgroundImage: result.backgroundImage,
+        rating: result.rating
+      )
+    }
+  }
+  
 }

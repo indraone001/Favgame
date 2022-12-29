@@ -39,7 +39,37 @@ class Injection {
         gameRepository: resolver.resolve(GameRepository.self)!
       )
     }
-
+    
+    container.register(SearchGameUseCase.self) { resolver in
+      SearchGameUseCase(
+        gameRepository: resolver.resolve(GameRepository.self)!
+      )
+    }
+    
+    container.register(GetFavoritesGameUseCase.self) { resolver in
+      GetFavoritesGameUseCase(
+        gameRepository: resolver.resolve(GameRepository.self)!
+      )
+    }
+    
+    container.register(InsertFavoriteGameUseCase.self) { resolver in
+      InsertFavoriteGameUseCase(
+        gameRepository: resolver.resolve(GameRepository.self)!
+      )
+    }
+    
+    container.register(CheckIsFavoriteUseCase.self) { resolver in
+      CheckIsFavoriteUseCase(
+        gameRepository: resolver.resolve(GameRepository.self)!
+      )
+    }
+    
+    container.register(DeleteFavoriteGameUseCase.self) { resolver in
+      DeleteFavoriteGameUseCase(
+        gameRepository: resolver.resolve(GameRepository.self)!
+      )
+    }
+    
     // MARK: - Presenter
     container.register(HomeViewController.self) { resolver in
       let controller = HomeViewController()
@@ -50,6 +80,26 @@ class Injection {
     container.register(DetailViewController.self) { resolver in
       let controller = DetailViewController()
       controller.getGameDetailUseCase = resolver.resolve(GetGameDetailUseCase.self)
+      controller.insertFavoriteGameUseCase = resolver.resolve(InsertFavoriteGameUseCase.self)
+      controller.checkIsFavoriteUseCase = resolver.resolve(CheckIsFavoriteUseCase.self)
+      controller.deleteFavoriteGameUseCase = resolver.resolve(DeleteFavoriteGameUseCase.self)
+      return controller
+    }
+    
+    container.register(SearchViewController.self) { resolver in
+      let controller = SearchViewController()
+      controller.searchGameUseCase = resolver.resolve(SearchGameUseCase.self)
+      return controller
+    }
+    
+    container.register(FavoriteViewController.self) { resolver in
+      let controller = FavoriteViewController()
+      controller.getFavoriteGameUseCase = resolver.resolve(GetFavoritesGameUseCase.self)
+      return controller
+    }
+    
+    container.register(AboutViewController.self) { _ in
+      let controller = AboutViewController()
       return controller
     }
     

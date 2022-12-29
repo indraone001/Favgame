@@ -137,7 +137,7 @@ extension HomeViewController: SkeletonCollectionViewDataSource, SkeletonCollecti
     let selectedGameId = gameList?[indexPath.row].id
     let detailVC = Injection().container.resolve(DetailViewController.self)
     guard let detailVC = detailVC else { return }
-    detailVC.configure(withAnimeId: selectedGameId!)
+    detailVC.configure(withGameId: selectedGameId!)
     
     let nav = UINavigationController(rootViewController: detailVC)
     nav.modalPresentationStyle = .fullScreen

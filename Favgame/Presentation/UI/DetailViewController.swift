@@ -12,9 +12,13 @@ import SkeletonView
 class DetailViewController: UIViewController {
   // MARK: - Properties
   var getGameDetailUseCase: GetGameDetailUseCase?
+  var checkIsFavoriteUseCase: CheckIsFavoriteUseCase?
+  var insertFavoriteGameUseCase: InsertFavoriteGameUseCase?
+  var deleteFavoriteGameUseCase: DeleteFavoriteGameUseCase?
   private var cancellables: Set<AnyCancellable> = []
   private var gameDetail: GameDetail?
   private var gameId: Int?
+  private var isFavorite: Bool = false
   
   private let detailCollectionView: UICollectionView = {
     let layout = UICollectionViewFlowLayout()
@@ -38,9 +42,18 @@ class DetailViewController: UIViewController {
     return collectionView
   }()
   
+  lazy var favoriteButton: UIButton = {
+    let button = UIButton(type: .system)
+    button.setImage(UIImage(systemName: "heart"), for: .normal)
+    button.tintColor = .systemRed
+    button.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
+    return button
+  }()
+  
   // MARK: - Life Cycle
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
+    checkFavorite()
   }
   
   override func viewDidLoad() {
@@ -53,15 +66,10 @@ class DetailViewController: UIViewController {
     button.setImage(UIImage(systemName: "chevron.left"), for: .normal)
     button.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
     navigationItem.leftBarButtonItem = UIBarButtonItem(customView: button)
-    
-    let favoriteButton = UIButton(type: .system)
-    favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
-    favoriteButton.tintColor = .systemRed
-    favoriteButton.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
     navigationItem.rightBarButtonItem = UIBarButtonItem(customView: favoriteButton)
     
-    setupUI()
     fetchGameDetail()
+    setupUI()
   }
   
   // MARK: - Selector
@@ -70,7 +78,17 @@ class DetailViewController: UIViewController {
   }
   
   @objc private func favoriteButtonTapped() {
-    print("Favorite Button Tapped")
+    if isFavorite {
+      isFavorite = false
+      favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
+      navigationItem.rightBarButtonItem = UIBarButtonItem(customView: favoriteButton)
+      deleteFromFavorite()
+    } else {
+      isFavorite = true
+      favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+      navigationItem.rightBarButtonItem = UIBarButtonItem(customView: favoriteButton)
+      insertToFavorite()
+    }
   }
   
   // MARK: - Helper
@@ -105,7 +123,89 @@ class DetailViewController: UIViewController {
       .store(in: &cancellables)
   }
   
-  func configure(withAnimeId id: Int) {
+  private func checkFavorite() {
+    guard let id = self.gameId else { return }
+    checkIsFavoriteUseCase?.execute(withGameId: id)
+      .receive(on: RunLoop.main)
+      .sink(receiveCompletion: { completion in
+        switch completion {
+        case .failure:
+          let alert = UIAlertController(title: "Alert", message: String(describing: completion), preferredStyle: .alert)
+          alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+          self.present(alert, animated: true)
+        case .finished:
+          print("favorited")
+        }
+      }, receiveValue: { isFavorite in
+        self.isFavorite = isFavorite
+        if isFavorite {
+          self.favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+          self.favoriteButton.addTarget(self, action: #selector(self.favoriteButtonTapped), for: .touchUpInside)
+          self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.favoriteButton)
+        } else {
+          self.favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
+          self.favoriteButton.addTarget(self, action: #selector(self.favoriteButtonTapped), for: .touchUpInside)
+          self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.favoriteButton)
+        }
+      })
+      .store(in: &cancellables)
+  }
+  
+  private func insertToFavorite() {
+    guard let gameDetail = gameDetail else { return }
+    let game = Game(
+      id: gameDetail.id,
+      name: gameDetail.name,
+      released: gameDetail.released,
+      backgroundImage: gameDetail.backgroundImage,
+      rating: gameDetail.rating
+    )
+    insertFavoriteGameUseCase?.execute(with: game)
+      .receive(on: RunLoop.main)
+      .sink(receiveCompletion: { completion in
+        switch completion {
+        case .failure:
+          let alert = UIAlertController(title: "Alert", message: String(describing: completion), preferredStyle: .alert)
+          alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+          self.present(alert, animated: true)
+        case .finished:
+          print("finished insert favorited")
+        }
+      }, receiveValue: { isSuccess in
+        if isSuccess {
+          self.sendFavoriteNotification()
+          self.isFavorite = true
+        }
+      })
+      .store(in: &cancellables)
+  }
+  
+  private func deleteFromFavorite() {
+    guard let gameId = self.gameId else { return }
+    deleteFavoriteGameUseCase?.execute(withGamid: gameId)
+      .receive(on: RunLoop.main)
+      .sink(receiveCompletion: { completion in
+        switch completion {
+        case .failure:
+          let alert = UIAlertController(title: "Alert", message: String(describing: completion), preferredStyle: .alert)
+          alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+          self.present(alert, animated: true)
+        case .finished:
+          self.sendFavoriteNotification()
+        }
+      }, receiveValue: { isSuccess in
+        if isSuccess {
+          self.isFavorite = false
+        }
+      })
+      .store(in: &cancellables)
+  }
+  
+  private func sendFavoriteNotification() {
+    NotificationCenter.default.post(name: NSNotification.Name(Constant.favoritePressedNotif), object: nil)
+  }
+  
+  func configure(withGameId id: Int) {
     gameId = id
   }
   

@@ -8,9 +8,9 @@
 import Combine
 
 class GetGameDetailUseCase {
-  private let gameRepository: GameRepository
+  private let gameRepository: GameRepositoryProtocol
   
-  required init(gameRepository: GameRepository) {
+  required init(gameRepository: GameRepositoryProtocol) {
     self.gameRepository = gameRepository
   }
   
