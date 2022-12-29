@@ -9,9 +9,9 @@ target 'Favgame' do
   pod 'Alamofire'
   pod 'Kingfisher', '~> 7.0'
   pod 'SwiftLint'
-  pod 'JGProgressHUD'
   pod 'RealmSwift', '~>10'
   pod 'Swinject'
   pod 'SkeletonView'
+  pod 'IQKeyboardManagerSwift'
   
 end
