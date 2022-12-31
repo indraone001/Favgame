@@ -16,7 +16,7 @@ protocol GameRemoteDataSourceProtocol: AnyObject {
   
 }
 
-class GameRemoteDataSource: GameRemoteDataSourceProtocol {
+final class GameRemoteDataSource: GameRemoteDataSourceProtocol {
   
   func getListGame() -> AnyPublisher<[GameResponse], Error> {
     return Future<[GameResponse], Error> { completion in

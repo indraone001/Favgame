@@ -15,13 +15,17 @@ protocol GameLocalDataSourceProtocol: AnyObject {
   func deleteGameFromFavorite(with gameId: Int) -> AnyPublisher<Bool, Error>
 }
 
-class GameLocalDataSource: GameLocalDataSourceProtocol {
+final class GameLocalDataSource {
   
   private let realm: Realm
   
   required init(realm: Realm) {
     self.realm = realm
   }
+
+}
+
+extension GameLocalDataSource: GameLocalDataSourceProtocol {
   
   func insertGameToFavorite(with gameEntity: GameEntity) -> AnyPublisher<Bool, Error> {
     return Future <Bool, Error> { completion in
@@ -89,18 +93,5 @@ class GameLocalDataSource: GameLocalDataSourceProtocol {
           }
       }.eraseToAnyPublisher()
   }
-}
-
-extension Results {
-
-  func toArray<T>(ofType: T.Type) -> [T] {
-    var array = [T]()
-    for index in 0 ..< count {
-      if let result = self[index] as? T {
-        array.append(result)
-      }
-    }
-    return array
-  }
-
+  
 }

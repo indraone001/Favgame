@@ -8,16 +8,19 @@
 import Combine
 
 protocol GameRepositoryProtocol: AnyObject {
+  // MARK: - Remote
   func getGameList() -> AnyPublisher<[Game], Error>
   func getGameDetail(withGameId id: Int) -> AnyPublisher<GameDetail, Error>
   func searchGame(with query: String) -> AnyPublisher<[Game], Error>
+  
+  // MARK: - Local
   func insertGameToFavorite(with game: Game) -> AnyPublisher<Bool, Error>
   func getFavoritesGame() -> AnyPublisher<[Game], Error>
   func checkIsFavorite(withGameId id: Int) -> AnyPublisher<Bool, Error>
   func deleteFromFavorite(withGameId id: Int) -> AnyPublisher<Bool, Error>
 }
 
-class GameRepository: GameRepositoryProtocol {
+final class GameRepository {
   
   private let gameLocalDataSource: GameLocalDataSource
   private let gameRemoteDataSource: GameRemoteDataSource
@@ -29,6 +32,10 @@ class GameRepository: GameRepositoryProtocol {
     self.gameLocalDataSource = gameLocalDataSource
     self.gameRemoteDataSource = gameRemoteDataSource
   }
+  
+}
+
+extension GameRepository: GameRepositoryProtocol {
   
   func getGameList() -> AnyPublisher<[Game], Error> {
     return gameRemoteDataSource.getListGame()
@@ -68,4 +75,5 @@ class GameRepository: GameRepositoryProtocol {
     return gameLocalDataSource.deleteGameFromFavorite(with: id)
       .eraseToAnyPublisher()
   }
+  
 }

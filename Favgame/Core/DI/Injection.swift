@@ -7,7 +7,7 @@
 import Swinject
 import RealmSwift
 
-class Injection {
+final class Injection {
   let container: Container = {
     let container = Container()
     // MARK: - Data Source

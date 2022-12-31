@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6406AFC91963108AF82958D5 /* Pods_Favgame.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 72D2E646C25A023F74390264 /* Pods_Favgame.framework */; };
+		697DC55E295FFBE300049156 /* Results+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697DC55D295FFBE300049156 /* Results+Ext.swift */; };
 		69945CA3295ACFEF00CD014D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69945CA2295ACFEF00CD014D /* AppDelegate.swift */; };
 		69945CA5295ACFEF00CD014D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69945CA4295ACFEF00CD014D /* SceneDelegate.swift */; };
 		69945CAC295ACFF100CD014D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 69945CAB295ACFF100CD014D /* Assets.xcassets */; };
@@ -50,6 +51,7 @@
 
 /* Begin PBXFileReference section */
 		058356AA63D15027EFF8E363 /* Pods-Favgame.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Favgame.debug.xcconfig"; path = "Target Support Files/Pods-Favgame/Pods-Favgame.debug.xcconfig"; sourceTree = "<group>"; };
+		697DC55D295FFBE300049156 /* Results+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Results+Ext.swift"; sourceTree = "<group>"; };
 		69945C9F295ACFEF00CD014D /* Favgame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Favgame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		69945CA2295ACFEF00CD014D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		69945CA4295ACFEF00CD014D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 				69945CD5295BB8A900CD014D /* UIColor+Ext.swift */,
 				69945CED295BE4B000CD014D /* CustomError+Ext.swift */,
 				69945D08295D486800CD014D /* UITableView+Ext.swift */,
+				697DC55D295FFBE300049156 /* Results+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -508,6 +511,7 @@
 				69945D07295D376D00CD014D /* GameTableViewCell.swift in Sources */,
 				69945CD4295B001B00CD014D /* Constraints+Ext.swift in Sources */,
 				69945D03295D273F00CD014D /* SearchViewController.swift in Sources */,
+				697DC55E295FFBE300049156 /* Results+Ext.swift in Sources */,
 				69945CD1295AFC8700CD014D /* Constant.swift in Sources */,
 				69945D13295D7AD200CD014D /* InsertFavoriteGameUseCase.swift in Sources */,
 				69945D15295D865400CD014D /* CheckIsFavoriteUseCase.swift in Sources */,

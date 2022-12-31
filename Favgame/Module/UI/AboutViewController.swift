@@ -116,31 +116,33 @@ class AboutViewController: UIViewController {
   
   private func setupUI() {
     view.addSubview(coverImage)
-    coverImage.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+    coverImage.centerX(
+      inView: view,
+      topAnchor: view.safeAreaLayoutGuide.topAnchor
+    )
     coverImage.anchor(
-      top: view.safeAreaLayoutGuide.topAnchor,
       width: 120,
       height: 120
     )
     
     view.addSubview(nameLabel)
-    nameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-    nameLabel.anchor(
-      top: coverImage.bottomAnchor,
+    nameLabel.centerX(
+      inView: view,
+      topAnchor: coverImage.bottomAnchor,
       paddingTop: 16
     )
     
     view.addSubview(jobLabel)
-    jobLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-    jobLabel.anchor(
-      top: nameLabel.bottomAnchor,
+    jobLabel.centerX(
+      inView: view,
+      topAnchor: nameLabel.bottomAnchor,
       paddingTop: 16
     )
     
     view.addSubview(descriptionLabel)
-    descriptionLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-    descriptionLabel.anchor(
-      top: jobLabel.bottomAnchor,
+    descriptionLabel.centerX(
+      inView: view,
+      topAnchor: jobLabel.bottomAnchor,
       paddingTop: 24
     )
   }
