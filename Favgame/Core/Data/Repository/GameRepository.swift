@@ -49,7 +49,7 @@ class GameRepository: GameRepositoryProtocol {
   }
   
   func insertGameToFavorite(with game: Game) -> AnyPublisher<Bool, Error> {
-    return gameLocalDataSource.insertGameToFavorite(with: game)
+    return gameLocalDataSource.insertGameToFavorite(with: GameMapper.mapGameModelToEntity(input: game))
       .eraseToAnyPublisher()
   }
   

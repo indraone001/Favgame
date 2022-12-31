@@ -9,7 +9,7 @@ import RealmSwift
 import Combine
 
 protocol GameLocalDataSourceProtocol: AnyObject {
-  func insertGameToFavorite(with game: Game) -> AnyPublisher<Bool, Error>
+  func insertGameToFavorite(with gameEntity: GameEntity) -> AnyPublisher<Bool, Error>
   func getFavoriteGame() -> AnyPublisher<[GameEntity], Error>
   func checkIsFavorite(with gameId: Int) -> AnyPublisher<Bool, Error>
   func deleteGameFromFavorite(with gameId: Int) -> AnyPublisher<Bool, Error>
@@ -23,17 +23,10 @@ class GameLocalDataSource: GameLocalDataSourceProtocol {
     self.realm = realm
   }
   
-  func insertGameToFavorite(with game: Game) -> AnyPublisher<Bool, Error> {
+  func insertGameToFavorite(with gameEntity: GameEntity) -> AnyPublisher<Bool, Error> {
     return Future <Bool, Error> { completion in
       do {
         try self.realm.write {
-          let gameEntity = GameEntity(
-            id: game.id,
-            name: game.name,
-            released: game.released,
-            backgroundImage: game.backgroundImage,
-            rating: game.rating
-          )
           self.realm.add(gameEntity)
           completion(.success(true))
         }

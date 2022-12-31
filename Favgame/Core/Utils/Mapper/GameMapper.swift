@@ -35,4 +35,16 @@ final class GameMapper {
     }
   }
   
+  static func mapGameModelToEntity(
+    input game: Game
+  ) -> GameEntity {
+    return GameEntity(
+      id: game.id,
+      name: game.name,
+      released: game.released,
+      backgroundImage: game.backgroundImage,
+      rating: game.rating
+    )
+  }
+  
 }
